@@ -1,6 +1,8 @@
 pipeline {
     agent any
-
+    options {
+        timeout(time: 20, unit: 'MINUTES')
+    }
     environment {
         DOCKER_IMAGE = 'akanshapal/stock-calculator:latest'
         KUBE_NAMESPACE = 'default' // Kubernetes namespace to deploy to
