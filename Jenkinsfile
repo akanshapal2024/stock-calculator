@@ -15,12 +15,11 @@ pipeline {
             }
         }
 
-        stage('Build Application') {
+        stage('Build Docker Image') {
             steps {
                 script {
-                    // Example build step for Windows - Adjust according to your application
-                    bat 'echo Building the application...'
-                    // Add your build commands here, e.g., `npm install`, `mvn package`, etc.
+                    // Run the Docker build command using bat (Windows batch command)
+                    bat "docker build -t ${DOCKER_IMAGE} ."
                 }
             }
         }
@@ -28,18 +27,8 @@ pipeline {
         stage('Run Tests') {
             steps {
                 script {
-                    // Example test step for Windows
+                    // Add your test commands if applicable
                     bat 'echo Running tests...'
-                    // Add your test commands here, e.g., `npm test`
-                }
-            }
-        }
-
-        stage('Build Docker Image') {
-            steps {
-                script {
-                    // Build the Docker image
-                    dockerImage = docker.build("${DOCKER_IMAGE}")
                 }
             }
         }
@@ -47,9 +36,13 @@ pipeline {
         stage('Push Docker Image') {
             steps {
                 script {
-                    // Push the Docker image to the registry
-                    docker.withRegistry('', 'dockerhub-credentials') {
-                        dockerImage.push()
+                    // Replace 'dockerhub-credentials' with your Jenkins Docker credentials ID
+                    withCredentials([usernamePassword(credentialsId: 'dockerhub-credentials', passwordVariable: 'DOCKERHUB_PASS', usernameVariable: 'DOCKERHUB_USER')]) {
+                        // Log in to Docker Hub or your Docker registry
+                        bat "docker login -u %DOCKERHUB_USER% -p %DOCKERHUB_PASS%"
+                        
+                        // Push the Docker image
+                        bat "docker push ${DOCKER_IMAGE}"
                     }
                 }
             }
