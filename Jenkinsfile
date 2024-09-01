@@ -7,10 +7,10 @@ pipeline {
     }
 
     stages {
-        stage('Clone Repository') {
+        
+        stage('Checkout GitHub repo') {
             steps {
-                // Clone the repository
-                git branch: 'main', credentialsId: 'git-credentials', url: 'https://github.com/akanshapal2024/stock-calculator.git'
+                checkout scmGit(branches: [[name: '*/main']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/akanshapal2024/stock-calculator.git]])
             }
         }
 
