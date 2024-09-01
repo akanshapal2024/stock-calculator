@@ -2,14 +2,32 @@ pipeline {
     agent any
     
     environment {
+        GIT_REPO = 'https://github.com/akanshapal2024/stock-calculator.git'
         DOCKER_IMAGE = 'akanshapal/stock-calculator:latest'
         KUBE_NAMESPACE = 'default' // Kubernetes namespace to deploy to
     }
 
     stages {
-        stage('Checkout GitHub repo') {
+        stage('Checkout Code') {
             steps {
-                checkout scmGit(branches: [[name: '*/main']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/akanshapal2024/stock-calculator.git]])
+                // Clone the Git repository
+                git branch: 'main', credentialsId: 'git-credentials', url: "${GIT_REPO}"
+            }
+        }
+
+        stage('Build Application') {
+            steps {
+                script {
+                    sh 'echo Building the application...'
+                }
+            }
+        }
+
+        stage('Run Tests') {
+            steps {
+                script {
+                    sh 'echo Running tests...'
+                }
             }
         }
 
