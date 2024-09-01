@@ -7,7 +7,6 @@ pipeline {
     }
 
     stages {
-        
         stage('Checkout GitHub repo') {
             steps {
                 checkout scmGit(branches: [[name: '*/main']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/akanshapal2024/stock-calculator.git]])
