@@ -10,7 +10,7 @@ pipeline {
         stage('Clone Repository') {
             steps {
                 // Clone the repository
-                git branch: 'main', credentialsId: 'git-credentials', url: "https://github.com/akanshapal2024/stock-calculator.git"
+                git branch: 'main', credentialsId: 'git-credentials', url: 'https://github.com/akanshapal2024/stock-calculator.git'
             }
         }
 
