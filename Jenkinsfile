@@ -18,7 +18,9 @@ pipeline {
         stage('Build Application') {
             steps {
                 script {
-                    sh 'echo Building the application...'
+                    // Example build step for Windows - Adjust according to your application
+                    bat 'echo Building the application...'
+                    // Add your build commands here, e.g., `npm install`, `mvn package`, etc.
                 }
             }
         }
@@ -26,7 +28,9 @@ pipeline {
         stage('Run Tests') {
             steps {
                 script {
-                    sh 'echo Running tests...'
+                    // Example test step for Windows
+                    bat 'echo Running tests...'
+                    // Add your test commands here, e.g., `npm test`
                 }
             }
         }
