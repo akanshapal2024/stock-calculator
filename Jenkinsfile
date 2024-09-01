@@ -60,8 +60,14 @@ pipeline {
     }
 
     post {
+        success {
+            echo 'Pipeline completed successfully!'
+        }
+        failure {
+            echo 'Pipeline failed!'
+        }
         always {
-            cleanWs() // Clean workspace after pipeline execution
+            cleanWs() // Clean workspace after the pipeline
         }
     }
 }
