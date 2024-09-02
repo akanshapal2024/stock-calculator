@@ -2,6 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: stock-calculator
+  namespace: jenkins
 spec:
   replicas: 1
   selector:
@@ -14,6 +15,19 @@ spec:
     spec:
       containers:
         - name: stock-calculator
-          image: stock-calculator:latest
+          image: akanshapal/stock-calculator:latest
           ports:
             - containerPort: 5000
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: stock-calculator-service
+  namespace: jenkins
+spec:
+  type: LoadBalancer
+  ports:
+    - port: 80
+      targetPort: 5000
+  selector:
+    app: flask-app
