@@ -22,7 +22,7 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: stock-calculator-service
+  name: jenkins
   namespace: jenkins
 spec:
   type: LoadBalancer
@@ -30,4 +30,4 @@ spec:
     - port: 80
       targetPort: 5000
   selector:
-    app: flask-app
+    app: stock-calculator
