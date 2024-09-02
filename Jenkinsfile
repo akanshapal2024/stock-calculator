@@ -52,7 +52,7 @@ pipeline {
             steps {
                 script {
                     // Apply Kubernetes Deployment and Service files
-                    //bat 'kubectl apply -f deployment.yaml'
+                    // bat 'kubectl apply -f deployment.yaml'
                 }
             }
         }
