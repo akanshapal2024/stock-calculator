@@ -53,9 +53,9 @@ pipeline {
         stage('Deploy') {
             steps {
                 withAWS(credentials: "${AWS_CREDENTIALS_ID}", region: 'us-west-2') {
-                    // Run your AWS CLI command here
-                    bat 'aws s3 ls' // Example command
-					bat 'kubectl apply -f deployment.yaml'
+			bat 'aws s3 ls' // Example command
+			bat 'kubectl apply -f deployment.yaml'
+			bat 'kubectl get pods --show-labels'
                 }
             }
         }
