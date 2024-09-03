@@ -2,6 +2,9 @@ pipeline {
     agent any
     
     environment {
+        AWS_ACCESS_KEY_ID = 'AKIAQIJRRY5HZ2DBTL77'
+        AWS_SECRET_ACCESS_KEY = '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'
+        AWS_DEFAULT_REGION = 'us-east-1'
         GIT_REPO = 'https://github.com/akanshapal2024/stock-calculator.git'
         DOCKER_IMAGE = 'akanshapal/stock-calculator:latest'
         KUBE_NAMESPACE = 'jenkins' // Kubernetes namespace to deploy to
@@ -44,6 +47,14 @@ pipeline {
                         // Push the Docker image
                         bat "docker push ${DOCKER_IMAGE}"
                     }
+                }
+            }
+        }
+        stage('Deploy to Kubernetes') {
+            steps {
+                script {
+                    // Apply Kubernetes Deployment and Service files
+                    bat 'kubectl apply -f deployment.yaml'
                 }
             }
         }
